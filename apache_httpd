@@ -1,0 +1,28 @@
+centOS / kail
+
+1. centOS에 아파치(웹 서버)를 설치하고, centOS / kail리눅스에서 웹브라우저를 이용해 centOS의 Apache에 접속하여 기본 페이지를 표시한다.
+
+i) 아파치 웹서버 : httpd
+  - 설치 => sudo yum install httpd
+  - 실행 => sudo systemctl start httpd
+  - 실행이 잘 되었는지 확인 => systemctl status httpd
+  - 자동실행 => systemctl enable httpd
+  ※ 아파치 설치 경로 확인 => whereis httdp
+ii) centOS 방화벽을 열어주고 적용(port : TCP/80)
+  - fireewall-cmd
+    => sudo firewall-cmd --zone=public --permanent --add-port=80/tcp //80포트 개방
+         sudo firewall-cmd --reload // 방화벽 리로드
+         sudo firewall-cmd --zone=public --list-all //열린 포트 확인
+         ※ firewall-cmd 없을 시 설치 => yum install firewalld
+iii) win->centOS
+  - cmd창에서 포트포워딩 설정
+    => ex.다음 명령은 127.0.0.1:8022로 들어오는 패킷을 192.168.100.1:22로 포워딩하도록 설정
+             명령어 : netsh interface portproxy add v4tov4 listenport=8022 listenaddress=127.0.0.1 connectport=22 connectaddress=192.168.100.1
+         ※ 포트포워딩 목록 확인 : netsh interface portproxy show v4tov4
+
+
++) 웹 서버(서비스)에 접속이 안될 때 
+i) 방화벽
+ii) 웹 서버가 실행이 안됨(실행x, 동작x)
+   => CentOS에서 curl localhost 혹은 curl 127.0.0.1
+iii) ping google.com 으로 연결확인
